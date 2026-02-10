@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator"
 import { Progress } from "@/components/ui/progress"
 import { CheckCircle, Star, Mail, Briefcase, Download, Award, Target, BarChart3, Clock } from "lucide-react"
 import { CandidateAnalysis } from "@/components/dashboard/candidate-analysis"
+import { format } from "date-fns"
 
 const getBadgeForScore = (score: number): 'Beginner' | 'Intermediate' | 'Expert' => {
     if (score >= 90) return 'Expert';
@@ -130,7 +131,7 @@ export default function CandidateProfilePage({ params }: { params: { id: string 
                         <CardTitle className="text-lg">{assessmentDetails.title}</CardTitle>
                         <Badge variant={getBadgeVariant(skillBadge)}>{skillBadge}</Badge>
                       </div>
-                      <CardDescription>{new Date(assessmentResult.completedAt).toLocaleDateString()}</CardDescription>
+                      <CardDescription>{format(new Date(assessmentResult.completedAt), "PPP")}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-3 gap-4 text-sm text-center">
