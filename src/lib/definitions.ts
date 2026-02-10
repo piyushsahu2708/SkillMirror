@@ -11,7 +11,7 @@ export type User = {
 };
 
 export type Assessment = {
-  id: string;
+  id:string;
   title: string;
   type: 'MCQ' | 'Coding' | 'Mixed';
   duration: number; // in minutes
@@ -37,6 +37,16 @@ export type CandidateAssessment = {
   status: 'Completed' | 'In Progress';
   completedAt: string;
   assessmentData: string; // JSON string of answers and timestamps
+  credibilityBreakdown: {
+    accuracy: number;
+    consistency: number;
+    difficulty: number;
+  };
+  certificate?: {
+    id: string;
+    verified: boolean;
+    downloadUrl: string;
+  };
 };
 
 export type Candidate = User & {

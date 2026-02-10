@@ -98,6 +98,8 @@ export const candidates: Candidate[] = [
         status: 'Completed',
         completedAt: '2023-10-26T10:00:00Z',
         assessmentData: JSON.stringify({ completionTime: 1200, answers: [{ q: 1, a: 'A', correct: true }, { q: 2, a: 'C', correct: false }] }),
+        credibilityBreakdown: { accuracy: 95, consistency: 85, difficulty: 70 },
+        certificate: { id: 'cert-v89sdd', verified: true, downloadUrl: '#' }
       },
       {
         assessmentId: 'asmt-2',
@@ -107,6 +109,7 @@ export const candidates: Candidate[] = [
         status: 'Completed',
         completedAt: '2023-10-28T14:30:00Z',
         assessmentData: JSON.stringify({ completionTime: 2500, answers: [{ q: 1, a: 'B', correct: true }, { q: 2, a: 'D', correct: true }] }),
+        credibilityBreakdown: { accuracy: 80, consistency: 70, difficulty: 85 },
       }
     ],
   },
@@ -121,15 +124,18 @@ export const candidates: Candidate[] = [
         status: 'Completed',
         completedAt: '2023-10-27T11:00:00Z',
         assessmentData: JSON.stringify({ completionTime: 1300, answers: [{ q: 1, a: 'A', correct: true }, { q: 2, a: 'B', correct: true }] }),
+        credibilityBreakdown: { accuracy: 90, consistency: 95, difficulty: 65 },
       },
        {
-        assessmentId: 'asmt-2',
+        assessmentId: 'asmt-3',
         candidateId: 'user-4',
         score: 88,
         credibilityScore: 82,
         status: 'Completed',
         completedAt: '2023-10-29T15:00:00Z',
         assessmentData: JSON.stringify({ completionTime: 2400, answers: [{ q: 1, a: 'B', correct: true }, { q: 2, a: 'D', correct: true }] }),
+        credibilityBreakdown: { accuracy: 85, consistency: 75, difficulty: 90 },
+        certificate: { id: 'cert-jklm34', verified: true, downloadUrl: '#' }
       }
     ],
   },
@@ -144,6 +150,8 @@ export const candidates: Candidate[] = [
         status: 'Completed',
         completedAt: '2023-11-01T09:05:00Z',
         assessmentData: JSON.stringify({ completionTime: 180, answers: "All answers are correct, completed in record time." }),
+        credibilityBreakdown: { accuracy: 100, consistency: 100, difficulty: 40 },
+        certificate: { id: 'cert-90uio1', verified: true, downloadUrl: '#' }
       }
     ]
   }
