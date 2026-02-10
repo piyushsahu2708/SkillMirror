@@ -31,6 +31,14 @@ export default function AssessmentTakingPage() {
 
   const currentQuestion: AssessmentQuestion | undefined = questions[currentQuestionIndex];
 
+  const stopCameraStream = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
+
   useEffect(() => {
     const getCameraPermission = async () => {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -66,10 +74,7 @@ export default function AssessmentTakingPage() {
     
     // Cleanup function to stop the stream
     return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach(track => track.stop());
-      }
+      stopCameraStream();
     };
   }, [toast]);
 
@@ -103,6 +108,7 @@ export default function AssessmentTakingPage() {
       title: "Assessment Submitted!",
       description: "Your responses have been recorded.",
     });
+    stopCameraStream();
     // In a real app, you would navigate to a results page or back to the dashboard.
   };
 
