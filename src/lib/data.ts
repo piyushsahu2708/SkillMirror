@@ -86,52 +86,68 @@ export const assessments: Assessment[] = [
 ];
 
 
-export const candidates: Candidate[] = (users.filter(u => u.role === 'candidate') as (User & { role: 'candidate' })[]).map(user => ({
-  ...user,
-  assessments: [
-    {
-      assessmentId: 'asmt-1',
-      candidateId: user.id,
-      score: Math.floor(Math.random() * (98 - 75 + 1)) + 75,
-      credibilityScore: Math.floor(Math.random() * (95 - 80 + 1)) + 80,
-      status: 'Completed',
-      completedAt: '2023-10-26T10:00:00Z',
-      assessmentData: JSON.stringify({ completionTime: 1200, answers: [{ q: 1, a: 'A', correct: true }, { q: 2, a: 'C', correct: false }] }),
-    },
-    {
-      assessmentId: 'asmt-2',
-      candidateId: user.id,
-      score: Math.floor(Math.random() * (92 - 65 + 1)) + 65,
-      credibilityScore: Math.floor(Math.random() * (88 - 70 + 1)) + 70,
-      status: 'Completed',
-      completedAt: '2023-10-28T14:30:00Z',
-      assessmentData: JSON.stringify({ completionTime: 2500, answers: [{ q: 1, a: 'B', correct: true }, { q: 2, a: 'D', correct: true }] }),
-    }
-  ],
-}));
-
-// Add a suspicious candidate
-const suspiciousCandidate = {
-  ...(users.find(u => u.id === 'user-5') as User & { role: 'candidate' }),
-  assessments: [
-    {
-      assessmentId: 'asmt-4',
-      candidateId: 'user-5',
-      score: 100,
-      credibilityScore: 99,
-      status: 'Completed',
-      completedAt: '2023-11-01T09:05:00Z',
-      assessmentData: JSON.stringify({ completionTime: 180, answers: "All answers are correct, completed in record time." }),
-    }
-  ]
-};
-
-const existingCandidateIndex = candidates.findIndex(c => c.id === 'user-5');
-if (existingCandidateIndex !== -1) {
-  candidates[existingCandidateIndex] = suspiciousCandidate;
-} else {
-  candidates.push(suspiciousCandidate);
-}
+export const candidates: Candidate[] = [
+  {
+    ...(users.find(u => u.id === 'user-1' && u.role === 'candidate') as User & { role: 'candidate' }),
+    assessments: [
+      {
+        assessmentId: 'asmt-1',
+        candidateId: 'user-1',
+        score: 92,
+        credibilityScore: 88,
+        status: 'Completed',
+        completedAt: '2023-10-26T10:00:00Z',
+        assessmentData: JSON.stringify({ completionTime: 1200, answers: [{ q: 1, a: 'A', correct: true }, { q: 2, a: 'C', correct: false }] }),
+      },
+      {
+        assessmentId: 'asmt-2',
+        candidateId: 'user-1',
+        score: 78,
+        credibilityScore: 75,
+        status: 'Completed',
+        completedAt: '2023-10-28T14:30:00Z',
+        assessmentData: JSON.stringify({ completionTime: 2500, answers: [{ q: 1, a: 'B', correct: true }, { q: 2, a: 'D', correct: true }] }),
+      }
+    ],
+  },
+  {
+    ...(users.find(u => u.id === 'user-4' && u.role === 'candidate') as User & { role: 'candidate' }),
+    assessments: [
+       {
+        assessmentId: 'asmt-1',
+        candidateId: 'user-4',
+        score: 85,
+        credibilityScore: 91,
+        status: 'Completed',
+        completedAt: '2023-10-27T11:00:00Z',
+        assessmentData: JSON.stringify({ completionTime: 1300, answers: [{ q: 1, a: 'A', correct: true }, { q: 2, a: 'B', correct: true }] }),
+      },
+       {
+        assessmentId: 'asmt-2',
+        candidateId: 'user-4',
+        score: 88,
+        credibilityScore: 82,
+        status: 'Completed',
+        completedAt: '2023-10-29T15:00:00Z',
+        assessmentData: JSON.stringify({ completionTime: 2400, answers: [{ q: 1, a: 'B', correct: true }, { q: 2, a: 'D', correct: true }] }),
+      }
+    ],
+  },
+  {
+    ...(users.find(u => u.id === 'user-5' && u.role === 'candidate') as User & { role: 'candidate' }),
+    assessments: [
+      {
+        assessmentId: 'asmt-4',
+        candidateId: 'user-5',
+        score: 100,
+        credibilityScore: 99,
+        status: 'Completed',
+        completedAt: '2023-11-01T09:05:00Z',
+        assessmentData: JSON.stringify({ completionTime: 180, answers: "All answers are correct, completed in record time." }),
+      }
+    ]
+  }
+];
 
 export function findCandidateById(id: string): Candidate | undefined {
   return candidates.find(c => c.id === id);
