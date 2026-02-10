@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -56,22 +57,78 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cn(sheetVariants({ side }), className)}
-      {...props}
-    >
-      {children}
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
-    </SheetPrimitive.Content>
-  </SheetPortal>
-))
+>(({ side = "right", className, children, ...props }, ref) => {
+  // Ref for the close button to trigger it programmatically for the swipe gesture.
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null)
+  // Ref to store the starting touch position and time.
+  const touchStartRef = React.useRef<{ x: number; time: number } | null>(null)
+
+  // Constants for swipe detection to provide a reliable gesture.
+  const SWIPE_THRESHOLD = 75 // Min horizontal distance in pixels for a swipe.
+  const SWIPE_VELOCITY = 0.4 // Min velocity in pixels/ms for a swipe.
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Store the starting X coordinate and time of the touch.
+    touchStartRef.current = { x: e.touches[0].clientX, time: Date.now() }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return
+
+    // Calculate distance and time elapsed from touch start to end.
+    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x
+    const deltaTime = Date.now() - touchStartRef.current.time
+
+    // Avoid dividing by zero if the touch was instantaneous.
+    if (deltaTime === 0) return
+    
+    // Calculate the velocity of the swipe.
+    const velocity = deltaX / deltaTime
+
+    let shouldClose = false
+    
+    // Determine if the swipe should close the sheet based on direction, distance, and velocity.
+    if (side === "left" && (deltaX < -SWIPE_THRESHOLD || velocity < -SWIPE_VELOCITY)) {
+      shouldClose = true
+    }
+    
+    if (side === "right" && (deltaX > SWIPE_THRESHOLD || velocity > SWIPE_VELOCITY)) {
+      shouldClose = true
+    }
+
+    if (shouldClose) {
+      // Programmatically click the close button to trigger Radix's built-in close behavior.
+      // This ensures all state is handled correctly by the dialog manager.
+      closeButtonRef.current?.click()
+    }
+    
+    // Reset touch start data for the next interaction.
+    touchStartRef.current = null
+  }
+
+  return (
+    <SheetPortal>
+      <SheetOverlay />
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ side }), className)}
+        // Add touch event handlers for the swipe-to-close gesture.
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        {...props}
+      >
+        {children}
+        <SheetPrimitive.Close
+          ref={closeButtonRef}
+          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetPrimitive.Close>
+      </SheetPrimitive.Content>
+    </SheetPortal>
+  )
+})
 SheetContent.displayName = SheetPrimitive.Content.displayName
 
 const SheetHeader = ({
