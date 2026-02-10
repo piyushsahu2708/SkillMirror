@@ -591,6 +591,61 @@ export const assessmentQuestions: AssessmentQuestion[] = [
     ],
     correctIndex: 0,
   },
+  {
+    id: 61,
+    assessmentId: 'asmt-3',
+    question:
+      "What is Node.js and why is it suitable for building scalable backend applications?",
+    options: [
+      "It is a frontend framework",
+      "It runs JavaScript on the server using a non-blocking event-driven model",
+      "It is only used for scripting",
+      "It replaces databases",
+    ],
+    correctIndex: 1,
+  },
+  {
+    id: 62,
+    assessmentId: 'asmt-3',
+    question:
+      "Which Express.js method is used to handle HTTP GET requests?",
+    options: ["app.post()", "app.get()", "app.use()", "app.listen()"],
+    correctIndex: 1,
+  },
+  {
+    id: 63,
+    assessmentId: 'asmt-3',
+    question:
+      "How do you handle asynchronous operations in Node.js?",
+    options: [
+      "Using callbacks, promises, and async/await",
+      "Using only loops",
+      "Using threads only",
+      "Using HTML events",
+    ],
+    correctIndex: 0,
+  },
+  {
+    id: 64,
+    assessmentId: 'asmt-3',
+    question:
+      "What does middleware do in Express.js?",
+    options: [
+      "Handles database storage",
+      "Executes code between request and response",
+      "Starts the server",
+      "Compiles JavaScript",
+    ],
+    correctIndex: 1,
+  },
+  {
+    id: 65,
+    assessmentId: 'asmt-3',
+    question:
+      "Which status code should be returned for a successful resource creation?",
+    options: ["200", "201", "400", "500"],
+    correctIndex: 1,
+  },
 ];
 
 
