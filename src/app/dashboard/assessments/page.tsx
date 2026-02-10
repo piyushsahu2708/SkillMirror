@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Clock, HelpCircle, BarChart } from "lucide-react"
+import Link from "next/link"
 
 export default function AssessmentsPage() {
   return (
@@ -49,7 +50,9 @@ export default function AssessmentsPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Start Assessment</Button>
+              <Button asChild className="w-full">
+                <Link href={`/dashboard/assessments/${assessment.id}`}>Start Assessment</Link>
+              </Button>
             </CardFooter>
           </Card>
         ))}

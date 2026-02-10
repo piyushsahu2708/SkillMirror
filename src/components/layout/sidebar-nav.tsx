@@ -45,25 +45,31 @@ export function SidebarNav() {
 
   return (
     <SidebarMenu className="p-2">
-      {navLinks.map((link) => (
-        <SidebarMenuItem key={link.href}>
-          <Link href={link.href} passHref>
-            <SidebarMenuButton
-              className="w-full justify-start"
-              isActive={pathname === link.href}
-              tooltip={link.label}
-            >
-              <link.icon className="size-4 shrink-0" />
-              <span className="truncate">{link.label}</span>
-              {link.badge && (
-                <Badge variant="secondary" className="ml-auto">
-                  {link.badge}
-                </Badge>
-              )}
-            </SidebarMenuButton>
-          </Link>
-        </SidebarMenuItem>
-      ))}
+      {navLinks.map((link) => {
+        const isActive = link.href === '/dashboard' 
+          ? pathname === link.href 
+          : pathname.startsWith(link.href);
+        
+        return (
+          <SidebarMenuItem key={link.href}>
+            <Link href={link.href} passHref>
+              <SidebarMenuButton
+                className="w-full justify-start"
+                isActive={isActive}
+                tooltip={link.label}
+              >
+                <link.icon className="size-4 shrink-0" />
+                <span className="truncate">{link.label}</span>
+                {link.badge && (
+                  <Badge variant="secondary" className="ml-auto">
+                    {link.badge}
+                  </Badge>
+                )}
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
+        );
+      })}
     </SidebarMenu>
   );
 }
