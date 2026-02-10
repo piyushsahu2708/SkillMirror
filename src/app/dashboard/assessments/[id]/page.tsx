@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { notFound, useParams } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { findAssessmentById, findQuestionsForAssessment } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -17,6 +17,7 @@ import type { AssessmentQuestion } from '@/lib/definitions';
 
 export default function AssessmentTakingPage() {
   const params = useParams();
+  const router = useRouter();
   const { id } = params;
   const assessment = findAssessmentById(id as string);
   const questions = findQuestionsForAssessment(id as string);
@@ -141,6 +142,11 @@ export default function AssessmentTakingPage() {
       setIsSubmitted(false);
       setResults({ score: 0, correctCount: 0, totalQuestions: 0 });
       // The useEffect will call getCameraPermission again since isSubmitted is now false
+  };
+
+  const handleCancel = () => {
+    stopCameraStream();
+    router.push('/dashboard/assessments');
   };
 
 
@@ -291,8 +297,8 @@ export default function AssessmentTakingPage() {
         </Card>
          <div className="flex flex-col gap-2">
             <Button disabled={!hasCameraPermission || currentQuestionIndex < questions.length - 1 || isSubmitted} size="lg" onClick={handleSubmit}>Submit Assessment</Button>
-            <Button variant="destructive" asChild>
-                <Link href="/dashboard/assessments">Cancel</Link>
+            <Button variant="destructive" onClick={handleCancel}>
+                Cancel
             </Button>
         </div>
       </div>
