@@ -21,12 +21,11 @@ export type Assessment = {
 };
 
 export type AssessmentQuestion = {
-  id: string;
+  id: number;
   assessmentId: string;
   question: string;
-  type: 'MCQ';
   options: string[];
-  correctAnswer: string;
+  correctIndex: number;
 };
 
 export type CandidateAssessment = {

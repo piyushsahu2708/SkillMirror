@@ -1,4 +1,4 @@
-import { User, Assessment, Candidate } from '@/lib/definitions';
+import { User, Assessment, Candidate, AssessmentQuestion } from '@/lib/definitions';
 
 export const users: User[] = [
   {
@@ -52,7 +52,7 @@ export const assessments: Assessment[] = [
     title: 'React Fundamentals',
     type: 'MCQ',
     duration: 30,
-    questionCount: 20,
+    questionCount: 5,
     difficulty: 'Easy',
     description: 'Test your knowledge of core React concepts like components, state, and props.',
   },
@@ -83,6 +83,14 @@ export const assessments: Assessment[] = [
     difficulty: 'Easy',
     description: 'A quick quiz on modern CSS layout techniques.',
   }
+];
+
+export const assessmentQuestions: AssessmentQuestion[] = [
+  { id: 1, assessmentId: 'asmt-1', question: "What is React?", options: [ "A backend framework", "A JavaScript library for building user interfaces", "A database", "A CSS framework", ], correctIndex: 1, },
+  { id: 2, assessmentId: 'asmt-1', question: "What is JSX?", options: [ "A JavaScript syntax extension", "A database query language", "A CSS preprocessor", "A browser API", ], correctIndex: 0, },
+  { id: 3, assessmentId: 'asmt-1', question: "Which hook is used to manage state in a functional component?", options: ["useEffect", "useRef", "useState", "useMemo"], correctIndex: 2, },
+  { id: 4, assessmentId: 'asmt-1', question: "Props in React are __________.", options: [ "Mutable", "Used for styling", "Read-only", "Used only in class components", ], correctIndex: 2, },
+  { id: 5, assessmentId: 'asmt-1', question: "What causes a React component to re-render?", options: [ "Changing props or state", "Calling console.log", "Using JSX", "Importing a component", ], correctIndex: 0, },
 ];
 
 
@@ -163,4 +171,8 @@ export function findCandidateById(id: string): Candidate | undefined {
 
 export function findAssessmentById(id: string): Assessment | undefined {
   return assessments.find(a => a.id === id);
+}
+
+export function findQuestionsForAssessment(assessmentId: string): AssessmentQuestion[] {
+  return assessmentQuestions.filter(q => q.assessmentId === assessmentId);
 }
