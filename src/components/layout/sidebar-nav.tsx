@@ -58,7 +58,7 @@ export function SidebarNav() {
               isActive={isActive}
               tooltip={link.label}
             >
-              <Link href={link.href}>
+              <Link href={link.href} prefetch={false}>
                 <link.icon className="size-4 shrink-0" />
                 <span className="truncate">{link.label}</span>
                 {link.badge && (
