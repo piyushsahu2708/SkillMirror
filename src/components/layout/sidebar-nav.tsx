@@ -52,12 +52,13 @@ export function SidebarNav() {
         
         return (
           <SidebarMenuItem key={link.href}>
-            <Link href={link.href} passHref>
-              <SidebarMenuButton
-                className="w-full justify-start"
-                isActive={isActive}
-                tooltip={link.label}
-              >
+            <SidebarMenuButton
+              asChild
+              className="w-full justify-start"
+              isActive={isActive}
+              tooltip={link.label}
+            >
+              <Link href={link.href}>
                 <link.icon className="size-4 shrink-0" />
                 <span className="truncate">{link.label}</span>
                 {link.badge && (
@@ -65,8 +66,8 @@ export function SidebarNav() {
                     {link.badge}
                   </Badge>
                 )}
-              </SidebarMenuButton>
-            </Link>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         );
       })}
