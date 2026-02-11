@@ -41,7 +41,7 @@ export function SidebarNav() {
     ],
   };
 
-  const navLinks = [...commonLinks, ...roleLinks[role]];
+  const navLinks = [...commonLinks, ...(roleLinks[role] || [])];
 
   return (
     <SidebarMenu className="p-2">

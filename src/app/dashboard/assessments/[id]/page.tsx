@@ -133,6 +133,7 @@ export default function AssessmentTakingPage() {
       description: `You scored ${calculatedScore}%. Your responses have been recorded.`,
     });
     setIsSubmitted(true);
+    stopCameraStream();
   };
 
   const handleRetake = () => {
