@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const GeneratePerformanceFeedbackInputSchema = z.object({
+const GeneratePerformanceFeedbackInputSchema = z.object({
   assessmentTitle: z.string().describe('The title of the assessment taken.'),
   difficulty: z.enum(['Easy', 'Medium', 'Hard']).describe('The difficulty level of the assessment.'),
   score: z.number().describe('The percentage score achieved by the candidate (0-100).'),
@@ -20,7 +20,7 @@ export const GeneratePerformanceFeedbackInputSchema = z.object({
 
 export type GeneratePerformanceFeedbackInput = z.infer<typeof GeneratePerformanceFeedbackInputSchema>;
 
-export const GeneratePerformanceFeedbackOutputSchema = z.object({
+const GeneratePerformanceFeedbackOutputSchema = z.object({
   strength: z.string().describe("A brief analysis of the candidate's strength areas based on their performance."),
   weakness: z.string().describe("A brief analysis of the candidate's weak areas that need improvement."),
   suggestion: z.string().describe("A specific, actionable suggestion for the candidate to improve their skills in the weak areas."),
