@@ -4,7 +4,7 @@
  * @fileOverview This file contains a Genkit flow for generating AI-powered performance feedback after a candidate completes an assessment.
  *
  * @interface GeneratePerformanceFeedbackInput - Defines the input schema for the flow.
- * @interface GeneratePerformanceFeedbackOutput - Defines the output schema for the flow.
+ * @interface GeneratePerformancefeedbackOutput - Defines the output schema for the flow.
  * @function generatePerformanceFeedback - The main function that triggers the flow.
  */
 
