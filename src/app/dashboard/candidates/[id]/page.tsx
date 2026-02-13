@@ -131,7 +131,7 @@ export default function CandidateProfilePage({ params }: { params: { id: string 
                         <CardTitle className="text-lg">{assessmentDetails.title}</CardTitle>
                         <Badge variant={getBadgeVariant(skillBadge)}>{skillBadge}</Badge>
                       </div>
-                      <CardDescription>{format(new Date(assessmentResult.completedAt), "PPP")}</CardDescription>
+                      <CardDescription suppressHydrationWarning>{format(new Date(assessmentResult.completedAt), "PPP")}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-3 gap-4 text-sm text-center">
