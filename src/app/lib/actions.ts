@@ -1,7 +1,8 @@
 "use server";
 
 import { flagSuspiciousScoring, FlagSuspiciousScoringOutput } from "@/ai/flows/flag-suspicious-scoring";
-import { findCandidateById } from "@/lib/data";
+import { generatePerformanceFeedback, GeneratePerformanceFeedbackOutput } from "@/ai/flows/generate-performance-feedback";
+import { findCandidateById, findAssessmentById } from "@/lib/data";
 
 export async function runSuspicionAnalysis(
   candidateId: string,
@@ -34,6 +35,35 @@ export async function runSuspicionAnalysis(
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "An unexpected error occurred during analysis.";
     console.error("Suspicion analysis failed:", message);
+    return { data: null, error: message };
+  }
+}
+
+export async function runPerformanceAnalysis(
+  assessmentId: string,
+  score: number,
+  totalQuestions: number
+): Promise<{ data: GeneratePerformanceFeedbackOutput | null; error: string | null }> {
+  try {
+    const assessment = findAssessmentById(assessmentId);
+    if (!assessment) {
+      throw new Error("Assessment details not found.");
+    }
+    
+    // Simulate a slow network request for the loading state
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const result = await generatePerformanceFeedback({
+      assessmentTitle: assessment.title,
+      difficulty: assessment.difficulty,
+      score: score,
+      totalQuestions: totalQuestions,
+    });
+
+    return { data: result, error: null };
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : "An unexpected error occurred during AI analysis.";
+    console.error("Performance analysis failed:", message);
     return { data: null, error: message };
   }
 }

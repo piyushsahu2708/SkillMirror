@@ -14,6 +14,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import type { AssessmentQuestion } from '@/lib/definitions';
+import { AIPerformanceFeedback } from '@/components/dashboard/ai-performance-feedback';
 
 export default function AssessmentTakingPage() {
   const params = useParams();
@@ -156,43 +157,52 @@ export default function AssessmentTakingPage() {
   }
 
   const renderResults = () => (
-    <Card className="md:col-span-2">
-      <CardHeader>
-        <CardTitle className="font-headline text-2xl">Assessment Results</CardTitle>
-        <CardDescription>Here is your performance for the "{assessment.title}" assessment.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-8">
-          <div className="text-center flex flex-col items-center gap-2">
-              <span className="text-muted-foreground">Your Score</span>
-              <h3 className="text-7xl font-bold text-primary">{results.score}%</h3>
-              <Progress value={results.score} className="h-3 w-full max-w-sm mt-2" />
-          </div>
+    <div className="md:col-span-2 space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-headline text-2xl">Assessment Results</CardTitle>
+          <CardDescription>Here is your performance for the "{assessment.title}" assessment.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-8">
+            <div className="text-center flex flex-col items-center gap-2">
+                <span className="text-muted-foreground">Your Score</span>
+                <h3 className="text-7xl font-bold text-primary">{results.score}%</h3>
+                <Progress value={results.score} className="h-3 w-full max-w-sm mt-2" />
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-              <div className="flex items-start gap-3 rounded-lg border p-4 bg-muted/20">
-                  <CheckCircle className="size-8 text-green-500 mt-1 shrink-0" />
-                  <div>
-                      <p className="font-bold text-2xl">{results.correctCount}</p>
-                      <p className="text-muted-foreground">Correct Answers</p>
-                  </div>
-              </div>
-              <div className="flex items-start gap-3 rounded-lg border p-4 bg-muted/20">
-                  <XCircle className="size-8 text-destructive mt-1 shrink-0" />
-                  <div>
-                      <p className="font-bold text-2xl">{results.totalQuestions - results.correctCount}</p>
-                      <p className="text-muted-foreground">Incorrect Answers</p>
-                  </div>
-              </div>
-          </div>
-          
-          <div className="flex justify-center gap-4 pt-4">
-              <Button onClick={handleRetake} size="lg">Retake Assessment</Button>
-              <Button variant="outline" size="lg" asChild>
-                  <Link href="/dashboard/assessments">Back to Assessments</Link>
-              </Button>
-          </div>
-      </CardContent>
-    </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                <div className="flex items-start gap-3 rounded-lg border p-4 bg-muted/20">
+                    <CheckCircle className="size-8 text-green-500 mt-1 shrink-0" />
+                    <div>
+                        <p className="font-bold text-2xl">{results.correctCount}</p>
+                        <p className="text-muted-foreground">Correct Answers</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3 rounded-lg border p-4 bg-muted/20">
+                    <XCircle className="size-8 text-destructive mt-1 shrink-0" />
+                    <div>
+                        <p className="font-bold text-2xl">{results.totalQuestions - results.correctCount}</p>
+                        <p className="text-muted-foreground">Incorrect Answers</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div className="flex justify-center gap-4 pt-4">
+                <Button onClick={handleRetake} size="lg">Retake Assessment</Button>
+                <Button variant="outline" size="lg" asChild>
+                    <Link href="/dashboard/assessments">Back to Assessments</Link>
+                </Button>
+            </div>
+        </CardContent>
+      </Card>
+
+      <AIPerformanceFeedback 
+          assessmentId={id as string}
+          score={results.score} 
+          totalQuestions={results.totalQuestions}
+          difficulty={assessment.difficulty}
+      />
+    </div>
   );
 
   const renderAssessment = () => (
