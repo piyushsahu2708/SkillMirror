@@ -41,7 +41,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function DashboardOverviewPage() {
-  const currentUser = users.find(u => u.name === "Samantha Bee");
+  // Switched to a candidate user to show a more relevant dashboard view
+  const currentUser = users.find(u => u.id === 'user-1');
 
   const stats = [
     {
