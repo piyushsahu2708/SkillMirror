@@ -28,7 +28,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { candidates } from "@/lib/data";
+import { candidates, users } from "@/lib/data";
 import {
   LineChart,
   Line,
@@ -41,6 +41,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function DashboardOverviewPage() {
+  const currentUser = users.find(u => u.name === "Samantha Bee");
+
   const stats = [
     {
       title: "Assessments Completed",
@@ -128,10 +130,10 @@ export default function DashboardOverviewPage() {
     <div className="flex flex-col gap-6">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold tracking-tight font-headline">
-          Welcome back, Samantha!
+          Welcome back, {currentUser?.name.split(' ')[0]}!
         </h1>
         <p className="text-muted-foreground">
-          Here's a summary of your activity and performance on SkillMirror.
+          {currentUser?.headline || "Here's a summary of your activity and performance on SkillMirror."}
         </p>
       </div>
 

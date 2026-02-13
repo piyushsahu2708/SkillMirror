@@ -2,6 +2,7 @@
 
 import { flagSuspiciousScoring, FlagSuspiciousScoringOutput } from "@/ai/flows/flag-suspicious-scoring";
 import { generatePerformanceFeedback, GeneratePerformanceFeedbackOutput } from "@/ai/flows/generate-performance-feedback";
+import { analyzeResume, AnalyzeResumeOutput } from "@/ai/flows/analyze-resume";
 import { findCandidateById, findAssessmentById } from "@/lib/data";
 
 export async function runSuspicionAnalysis(
@@ -64,6 +65,27 @@ export async function runPerformanceAnalysis(
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "An unexpected error occurred during AI analysis.";
     console.error("Performance analysis failed:", message);
+    return { data: null, error: message };
+  }
+}
+
+export async function runResumeAnalysis(
+  resumeText: string,
+  assessmentPerformance: string
+): Promise<{ data: AnalyzeResumeOutput | null; error: string | null }> {
+  try {
+    // Simulate a slow network request
+    await new Promise(resolve => setTimeout(resolve, 2500));
+
+    const result = await analyzeResume({
+      resumeText,
+      assessmentPerformance,
+    });
+
+    return { data: result, error: null };
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : "An unexpected error occurred during resume analysis.";
+    console.error("Resume analysis failed:", message);
     return { data: null, error: message };
   }
 }
