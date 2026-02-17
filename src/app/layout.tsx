@@ -3,10 +3,14 @@ import { Toaster } from "@/components/ui/toaster"
 import './globals.css';
 import SmoothScroll from '@/components/smooth-scroll';
 import ScrollProgress from '@/components/scroll-progress';
+import { LiquidEffectAnimation } from '@/components/ui/liquid-effect-animation';
 
 export const metadata: Metadata = {
   title: 'SkillMirror',
   description: 'Full Stack Skill Verification Platform',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
 export default function RootLayout({
@@ -22,6 +26,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
+        <LiquidEffectAnimation />
         <ScrollProgress />
         <SmoothScroll>
           {children}
