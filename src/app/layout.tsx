@@ -3,7 +3,6 @@ import { Toaster } from "@/components/ui/toaster"
 import './globals.css';
 import SmoothScroll from '@/components/smooth-scroll';
 import ScrollProgress from '@/components/scroll-progress';
-import { LiquidEffectAnimation } from '@/components/ui/liquid-effect-animation';
 
 export const metadata: Metadata = {
   title: 'SkillMirror',
@@ -24,9 +23,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
       </head>
       <body className="font-body antialiased">
-        <LiquidEffectAnimation />
         <ScrollProgress />
         <SmoothScroll>
           {children}
