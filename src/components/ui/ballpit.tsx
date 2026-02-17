@@ -47,7 +47,6 @@ const patchShader = (material: MeshPhysicalMaterial) => {
       uniform vec3 uColor1;
       uniform vec3 uColor2;
       varying vec3 vWorldPosition;
-      ${ShaderChunk.common}
       ${shader.fragmentShader}
     `.replace(
       `vec4 diffuseColor = vec4( diffuse, opacity );`,
