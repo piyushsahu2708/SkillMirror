@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Users, ClipboardList, TrendingUp, ShieldCheck } from "lucide-react";
 import { Logo } from "@/components/icons";
+import Ballpit from "@/components/ui/ballpit";
 
 export default function Home() {
   const features = [
@@ -70,12 +71,16 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-              <div className="flex items-center justify-center">
-                 <div className="relative w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] xl:w-[500px] xl:h-[500px]">
-                  <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl"></div>
-                  <div className="absolute inset-8 bg-accent/10 rounded-full blur-3xl animation-delay-2000"></div>
-                  <Logo className="relative w-full h-full text-primary/80" />
-                </div>
+              <div className="relative flex items-center justify-center overflow-hidden h-[300px] lg:h-[400px] xl:h-[500px] rounded-lg">
+                 <div className="absolute inset-0 z-0">
+                    <Ballpit
+                      count={200}
+                      gravity={0.7}
+                      friction={0.8}
+                      wallBounce={0.95}
+                      followCursor={true}
+                    />
+                  </div>
               </div>
             </div>
           </div>
